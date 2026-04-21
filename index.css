@@ -108,19 +108,27 @@ nav {
 .card-hover {
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     border: 1px solid rgba(0,0,0,0.05);
+    -webkit-tap-highlight-color: transparent;
 }
 
 .dark .card-hover {
     border: 1px solid rgba(255,255,255,0.05);
 }
 
-.card-hover:hover {
-    transform: translateY(-12px);
-    box-shadow: 0 20px 30px -10px rgba(168, 85, 247, 0.15);
+@media (hover: hover) {
+    .card-hover:hover {
+        transform: translateY(-12px);
+        box-shadow: 0 20px 30px -10px rgba(168, 85, 247, 0.15);
+    }
+    
+    .dark .card-hover:hover {
+        box-shadow: 0 20px 30px -10px rgba(168, 85, 247, 0.25);
+    }
 }
 
-.dark .card-hover:hover {
-    box-shadow: 0 20px 30px -10px rgba(168, 85, 247, 0.25);
+.card-hover:active {
+    transform: scale(0.96);
+    transition: transform 0.1s;
 }
 
 /* Buttons */
@@ -212,12 +220,19 @@ nav {
 /* Projects 3D Flip */
 .project-card {
     perspective: 1500px;
+    -webkit-tap-highlight-color: transparent;
 }
 .project-inner {
     transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     transform-style: preserve-3d;
 }
-.project-card:hover .project-inner {
+/* Trigger flip on hover for desktop, and active for mobile */
+@media (hover: hover) {
+    .project-card:hover .project-inner {
+        transform: rotateY(180deg);
+    }
+}
+.project-card:active .project-inner{
     transform: rotateY(180deg);
 }
 .project-front, .project-back {
@@ -229,4 +244,57 @@ nav {
 }
 .project-back {
     transform: rotateY(180deg);
+}
+
+/* Scroll Reveal Animations */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+}
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal-left {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+}
+.reveal-left.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.reveal-right {
+    opacity: 0;
+    transform: translateX(40px);
+    transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+}
+.reveal-right.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Delays */
+.delay-100 { transition-delay: 100ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
+.delay-400 { transition-delay: 400ms; }
+
+/* Enhanced Mobile Menu */
+.mobile-menu-content {
+    max-height: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease-in-out;
+    transform-origin: top;
+    transform: scaleY(0.95);
+}
+.mobile-menu-content.open {
+    max-height: 400px;
+    opacity: 1;
+    visibility: visible;
+    transform: scaleY(1);
 }
